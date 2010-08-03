@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load markup ct_groups_tags tagging_tags %}
+
+{% block title %}Tags{% endblock %}
+
+{% block body %}id="tags_nav"{% endblock %}
+
+{% block content %}
+    
+    <h1>Resources for '{{ object.name }}'</h1>
+
+    {% tagged_objects object in ct_groups.ctgroup as groups %}
+    
+    {% if groups %}
+    <h2>Groups:</h2>
+      <ul>
+        {% for o in groups %}
+            {% if o|group_access:user or o.is_public  %}
+                <li><a href="{% url group o.slug %}">{{ o.name }}</a></li>
+            {% endif %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% tagged_objects object in ct_groups.ctpost as posts %}
+    
+    {% if posts %}
+    <h2>Posts:</h2>
+      <ul>
+        {% for o in posts %}
+            <li><a href="{{ o.get_absolute_url }}">{{ o.title }}</a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+{% endblock %}

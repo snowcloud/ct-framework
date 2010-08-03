@@ -1,0 +1,47 @@
+{% extends "comments/base.html" %}
+{% load i18n utils markup forms %}
+
+{% block title %}{% trans "Preview your comment" %}{% endblock %}
+
+{% block content %}
+
+  {% load comments %}
+  <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+    {% if form.errors %}
+    <h1>{% blocktrans count form.errors|length as counter %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h1>
+    {% else %}
+    <h1>{% trans "Preview your comment" %}</h1>
+      <div class="box">{{ comment|textile|urlizetrunc:"60" }}</div>
+      <p>
+      <input type="submit" name="submit" class="submit-post" value="{% trans "Post your comment" %}" id="submit" /> {% trans "or make changes" %}:
+      </p>
+    {% endif %}
+
+    {# form has obj id in form.content_type + form.object_pk - use util filter to retrieve obj url #}
+    <input type="hidden" name="next" value="{{ form.content_type.data|get_object_url:form.object_pk.data }}" />
+    <fieldset>
+        <legend><span>Edit your comment</span></legend>
+        <ol>
+            {% show_errors form.non_field_errors %}
+            {% for field in form %}
+                {# if authenticated, don't show name or email (url hidden in css) #}
+                {% if user.is_authenticated %}
+                    {% ifnotequal field.name "name" %}
+                        {% ifnotequal field.name "email" %}
+                            {% show_field field "li" %}
+                        {% endifnotequal %}
+                    {% endifnotequal %}
+                {% else %}
+                    {% show_field field "li" %}
+                {% endif %}
+
+            {% endfor %}
+        </ol>
+    </fieldset>
+    <fieldset class="submit">
+        <input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" />
+        <input type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}" />
+    </fieldset>
+  </form>
+
+{% endblock %}

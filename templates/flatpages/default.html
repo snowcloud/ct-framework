@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load markup comments %}
+
+
+{% block title %}{{ flatpage.title }}{% endblock %}
+{% block doc_class %}class="single-col"{% endblock %}
+
+
+{% block content %}
+
+
+    <h1>{{ flatpage.title }}</h1>
+
+    {{ flatpage.content|textile }}
+
+
+    {% get_comment_list for flatpage as comment_list %}
+    {% if comment_list %}
+
+    <h3 id="comments">Comments:</h3>
+
+      {% for object in comment_list %}
+            <div class="comment">
+                    <h4>{{ object.person_name }} <small>- {{ object.submit_date|date:"j F Y, H:i" }}</small></h4>
+                    {{ object.comment|escape|textile }}
+            </div>
+        {% endfor %}
+
+    {% endif %}
+
+    {% if flatpage.enable_comments %}
+
+    <h4 id="add_comment">Add your comment:</h4>
+    {# <!-- #}
+    {#     {% if user.is_anonymous %} #}
+    {#         <em>If you are a member, please  #}
+    {#             <a href="{% site_base %}accounts/login/?next=../../../webitems/{{ object.id }}/">log in</a> first.</em> #}
+    {#     {% endif %} #}
+    {# --> #}
+
+    {% render_comment_form for flatpage %}
+
+
+    {% endif %}
+        
+
+
+{% endblock %}

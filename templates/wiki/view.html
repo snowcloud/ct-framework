@@ -1,0 +1,91 @@
+{% extends "wiki/base.html" %}
+{% load markup tagging_tags ct_groups_tags comments %}
+{% load i18n wiki %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block breadcrumbs %}&gt; <a href="/groups">groups</a> &gt; <a href="{{ article.group.get_absolute_url }}">{{ article.group.name }}</a>{% endblock %}
+
+{% block extracol %}
+<div class="rightCol yahoo">
+        <div class="mod complex flow"> 
+            <b class="top"><b class="tl"></b><b class="tr"></b></b> 
+            <div class="inner">
+                <div class="hd bammer">
+                    <h3>Group Pages</h3>
+                </div>
+                <div class="bd">
+                    
+                    {% wiki_pages for article as pages %}
+                    {% if pages %}
+                    
+                        <ul class="linkList">
+                            {% for page in pages %}
+                                <li><a href="{{ page.get_absolute_url }}">{{ page.summary }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    
+                    {% else %}
+                        <p>- none yet -</p>
+                    {% endif %}
+                    {{ article.group|wiki_new_page:user }}
+                </div>
+            </div>
+            <b class="bottom"><b class="bl"></b><b class="br"></b></b> 
+        </div>
+</div>
+{% endblock %}
+
+{% block contentclass %}{% endblock %}
+
+
+{% block content %}
+
+    <div class="line deepLine">
+        <div class="unit lastunit">
+            <div class="mod simple"> 
+                <b class="top"><b class="tl"></b><b class="tr"></b></b> 
+                <div class="inner">
+                    <div class="hd">
+                    </div>
+                    <div class="bd">
+                        <h1>{{ article.summary }}</h1>
+                        {# {% render_content article %} #}
+                        {{ article.content|textile }}
+
+                    </div>
+                    <div class="ft">
+                        <p>{{ article|wiki_edit:user }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+
+    {% comment %}
+
+{% block content %}
+    <h1>{{ article.summary }}</h1>
+
+    {% if not article.id %}
+        <p>{% trans "This article does not exist." %}
+          <a href="{% url wiki_edit article.title %}" {% trans ">Create it now</a>?" %}</p>
+    {% endif %}
+
+
+
+    {% if article.id %}
+        <a href="{% url wiki_edit article.title %}">{% trans "Edit this article" %}</a>
+        |
+        <a href="{% url wiki_article_history article.title %}">{% trans "Editing history" %}</a>
+    {% else %}
+        <a href="{% url wiki_edit article.title %}">{% trans "Create this article" %}</a>
+    {% endif %}
+    {% endcomment %}
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{% load comments forms i18n %}
+
+<form class="wide" action="{% comment_form_target %}" method="post">{% csrf_token %}
+    <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
+    <fieldset>
+        <legend><span>Add your comment</span></legend>
+        <ol>
+            {% show_errors form.non_field_errors %}
+            {% for field in form %}
+                {# if authenticated, don't show name or email (url hidden in css) #}
+                {% if user.is_authenticated %}
+                    {% ifnotequal field.name "name" %}
+                        {% ifnotequal field.name "email" %}
+                            {% show_field field "li" %}
+                        {% endifnotequal %}
+                    {% endifnotequal %}
+                {% else %}
+                    {% show_field field "li" %}
+                {% endif %}
+            
+            {% endfor %}
+        </ol>
+    </fieldset>
+    <fieldset class="submit">
+        <input type="submit" name="post" class="submit-post" value="{% trans "Post" %}" />
+        <input type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}" />
+    </fieldset>
+</form>
