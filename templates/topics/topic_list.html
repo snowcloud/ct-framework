@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% load markup %}
+{% load i18n markup %}
 
-{% block title %}Tags{% endblock %}
+{% block title %}{% trans 'Topics' %}{% endblock %}
 
 {% block body %}id="tags_nav"{% endblock %}
 
 {% block content %}
 
-    <h1>Topics</h1>
+    <h1>{% trans 'Topics' %}</h1>
 
-    <p>Resources are 'tagged' with these keywords:</p>
+    {# <p>Resources are 'tagged' with these keywords:</p> #}
 
     
     {% if object_list %}
@@ -19,7 +19,7 @@
         {% endfor %}
       </ul>
     {% else %}
-        <p>No tags found.</p>
+        <p>{% trans 'No topics found' %}.</p>
     {% endif %}
 
 

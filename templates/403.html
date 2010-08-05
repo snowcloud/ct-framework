@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 
 {% block title %}403 Forbidden{% endblock %}
 
@@ -7,7 +7,7 @@
 
 <h2>Access 403</h2>
 
-<p>We're sorry, but the requested page could not be accessed.</p>
-<p>Please revisit the <a href="/">home page</a> (or refresh the current page) then try again.</p>
+<p>{% trans "We're sorry, but the requested page could not be accessed" %}.</p>
+{# <p>Please revisit the <a href="/">home page</a> (or refresh the current page) then try again.</p> #}
 
 {% endblock %}

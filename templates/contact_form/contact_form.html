@@ -1,31 +1,31 @@
 {% extends "base.html" %}
-{%load forms %}
-{% block title %}Sign up{% endblock %}
+{%load forms i18n  %}
+{% block title %}{% trans 'Contact form' %}{% endblock %}
 
 
 {% block content %}
 
-    <h2>Contact form</h2>
+<h2>{% trans 'Contact form' %}</h2>
 
-    <p>To send us a message, just fill out the form below (all fields are required).</p>
+<p>{% trans 'To send us a message, just fill out the form below (all fields are required).' %}</p>
 
 
-    {% if form.errors %}
-    <p class="error">Please correct the errors below:</p>
-    {% endif %}
+{% if form.errors %}
+<p class="error">{% trans 'Please correct the errors below' %}:</p>
+{% endif %}
 
-    <form name="checkprofile" action="" method="post">{% csrf_token %}
+<form name="checkprofile" action="" method="post">{% csrf_token %}
 
-        <fieldset>
-            <legend><span>Your message</span></legend>
-            <ol>{% show_form form "li" %}</ol>
-        </fieldset>
+    <fieldset>
+        <legend><span>{% trans 'Your message' %}</span></legend>
+        <ol>{% show_form form "li" %}</ol>
+    </fieldset>
 
-        <fieldset class="submit">
-            <input type="submit" name="result" value="Send your messsage">
-        </fieldset>
-
-    </form>
+    <fieldset class="submit">
+        <input type="submit" name="result" value="{% trans 'Send your messsage' %}">
+    </fieldset>
+    
+</form>
 
 {% endblock %}
 

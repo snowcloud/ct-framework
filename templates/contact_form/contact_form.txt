@@ -1,5 +1,5 @@
-{% load humanize %}
-sender: {{ name }}
-email: {{ email }}
+{% load humanize i18n %}
+{% trans 'sender' %}: {{ name }}
+{% trans 'email' %}: {{ email }}
 
-{{ body }} 
+{{ body }}

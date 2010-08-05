@@ -3,7 +3,7 @@
 <form class="wide" action="{% comment_form_target %}" method="post">{% csrf_token %}
     <input type="hidden" name="next" value="{{ object.get_absolute_url }}" />
     <fieldset>
-        <legend><span>Add your comment</span></legend>
+        <legend><span>{% trans "Add your comment" %}</span></legend>
         <ol>
             {% show_errors form.non_field_errors %}
             {% for field in form %}

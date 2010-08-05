@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Registration closed' %}{% endblock %}
+
+{% block content_header %}{% trans 'Registration closed' %}{% endblock %}
+
+{% block content %}
+<h1>{% trans 'Registration is closed.' %}</h1>
+
+{% blocktrans %}
+<p>If you want to request a registration, please <a href="/contact/">contact us</a>.</p>
+{% endblocktrans %}
+
+
+{% endblock %}

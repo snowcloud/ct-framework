@@ -4,9 +4,8 @@
 {% block title %}{% trans "Preview your comment" %}{% endblock %}
 
 {% block content %}
-
   {% load comments %}
-  <form action="{% comment_form_target %}" method="post">{% csrf_token %}
+  <form class="wide" action="{% comment_form_target %}" method="post">{% csrf_token %}
     {% if form.errors %}
     <h1>{% blocktrans count form.errors|length as counter %}Please correct the error below{% plural %}Please correct the errors below{% endblocktrans %}</h1>
     {% else %}
@@ -20,7 +19,7 @@
     {# form has obj id in form.content_type + form.object_pk - use util filter to retrieve obj url #}
     <input type="hidden" name="next" value="{{ form.content_type.data|get_object_url:form.object_pk.data }}" />
     <fieldset>
-        <legend><span>Edit your comment</span></legend>
+        <legend><span>{% trans 'Edit your comment' %}</span></legend>
         <ol>
             {% show_errors form.non_field_errors %}
             {% for field in form %}

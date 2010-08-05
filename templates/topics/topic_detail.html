@@ -1,36 +1,65 @@
 {% extends "base.html" %}
-{% load markup ct_groups_tags tagging_tags %}
+{% load i18n markup ct_groups_tags tagging_tags %}
 
-{% block title %}Tags{% endblock %}
+{% block title %}{% trans 'Topics' %}{% endblock %}
 
 {% block body %}id="tags_nav"{% endblock %}
 
 {% block content %}
-    
-    <h1>Resources for '{{ object.name }}'</h1>
 
-    {% tagged_objects object in ct_groups.ctgroup as groups %}
+    <h1>{% blocktrans with object.name as name %}Resources for '{{ name }}'{% endblocktrans %}</h1>
+	
+    {% tagged_objects object in ct_groups.ctgroup as tagged_groups %}
+    {% tagged_objects object in ct_template.clintemplate as tagged_templates %}
+    {# {% tagged_objects object in ct_groups.ctpost as posts %} #}
+    {% tagged_objects object in blog.post as tagged_posts %}
     
-    {% if groups %}
-    <h2>Groups:</h2>
-      <ul>
-        {% for o in groups %}
-            {% if o|group_access:user or o.is_public  %}
-                <li><a href="{% url group o.slug %}">{{ o.name }}</a></li>
-            {% endif %}
-        {% endfor %}
-      </ul>
+	{% permitted_objects tagged_groups with group_access for user as groups %}
+	{% permitted_objects tagged_templates with resource_access for user as templates %}
+	{% permitted_objects tagged_posts with blog_access for user as posts %}
+
+	{% if groups or templates or posts %}
+	    {% if groups %}
+	    <h2>{% trans 'Groups' %}:</h2>
+	      <ul>
+	        {% for o in groups %}
+	            {% if o|group_access:user or o.is_public  %}
+	                <li><a href="{% url group o.slug %}">{{ o.name }}</a></li>
+	            {% endif %}
+	        {% endfor %}
+	      </ul>
+	    {% endif %}
+
+    
+	    {% if templates %}
+	    <h2>{% trans 'Detailed Clinical Models' %}:</h2>
+	      <ul>
+	        {% for o in templates %} 
+	            {% if o.group|resource_access:user  %}
+	                <li><a href="{{ o.get_absolute_url }}">{{ o.name }}</a></li>
+	            {% endif %}
+	        {% endfor %}
+	      </ul>
+	    {% endif %}
+
+
+	    {% if posts %}
+	    <h2>{% trans 'Discussion Posts' %}:</h2>
+	      <ul>
+	        {% for o in posts %}
+				{% if o|post_as_ctpost|post_access:user %}
+		            <li><a href="{{ o.get_absolute_url }}">{{ o.title }}</a></li>
+				{% else %}
+					<li><a href="{{ o.get_absolute_url }}">{{ o.title }}</a> - no access {{ user }}-</li>
+				{% endif %}
+	        {% endfor %}
+	      </ul>
+	    {% endif %}
+	
+	{% else %}
+    	<p>{% trans "No resources found" %}.</p>
     {% endif %}
 
-    {% tagged_objects object in ct_groups.ctpost as posts %}
-    
-    {% if posts %}
-    <h2>Posts:</h2>
-      <ul>
-        {% for o in posts %}
-            <li><a href="{{ o.get_absolute_url }}">{{ o.title }}</a></li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+	<p>&nbsp;</p>
 
 {% endblock %}
