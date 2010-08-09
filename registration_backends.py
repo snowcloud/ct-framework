@@ -52,7 +52,7 @@ class RegistrationWithName(RegistrationForm):
         debug += '%s %s [%s]\n%s\n\n' % ( self.data['first_name'], self.data['last_name'],
             self.data['username'], self.data['email'], )
         debug += 'http://www.google.co.uk/search?&q=%s\n\n' % self.data['email']
-        debug += 'http://%sadmin/auth/user/?q=%s\n' % (Site.objects.get_current().domain ,self.data['username'])
+        debug += 'http://%s/admin/auth/user/?q=%s\n' % (Site.objects.get_current().domain ,self.data['username'])
         
         from django.core.mail import send_mail
 
