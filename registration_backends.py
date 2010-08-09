@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
 from registration.backends.default import DefaultBackend
 from registration.forms import RegistrationForm
@@ -51,7 +52,7 @@ class RegistrationWithName(RegistrationForm):
         debug += '%s %s [%s]\n%s\n\n' % ( self.data['first_name'], self.data['last_name'],
             self.data['username'], self.data['email'], )
         debug += 'http://www.google.co.uk/search?&q=%s\n\n' % self.data['email']
-        debug += 'http://icnp.clinicaltemplates.org/admin/auth/user/?q=%s\n' % self.data['username']
+        debug += 'http://%sadmin/auth/user/?q=%s\n' % (Site.objects.get_current().domain ,self.data['username'])
         
         from django.core.mail import send_mail
 
