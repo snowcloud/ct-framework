@@ -39,15 +39,6 @@ class RegistrationWithName(RegistrationForm):
                                 maxlength=75)),
                                 label=_(u'last name'))
     
-    # def clean_email(self):
-    #         data = self.cleaned_data['email']
-    #         if "fred@example.com" not in data:
-    #             raise forms.ValidationError("")
-    # 
-    #         # Always return the cleaned data, whether you have changed it or
-    #         # not.
-    #         return data
-
     def clean(self):
         cleaned_data = self.cleaned_data
         email = cleaned_data.get("email")
@@ -57,9 +48,9 @@ class RegistrationWithName(RegistrationForm):
             
         debug = '%s\n' % self.errors.keys()
         debug += '%s\n' % self.errors.values()
-        debug += '%s %s [%s]\n%s\n' % ( self.data['first_name'], self.data['last_name'],
+        debug += '%s %s [%s]\n%s\n\n' % ( self.data['first_name'], self.data['last_name'],
             self.data['username'], self.data['email'], )
-        debug += 'http://www.google.co.uk/search?&q=%s\n' % self.data['email']
+        debug += 'http://www.google.co.uk/search?&q=%s\n\n' % self.data['email']
         debug += 'http://icnp.clinicaltemplates.org/admin/auth/user/?q=%s\n' % self.data['username']
         
         from django.core.mail import send_mail
@@ -69,14 +60,6 @@ class RegistrationWithName(RegistrationForm):
         
         return cleaned_data
         
-    
-    # def save(self):
-    # 
-    #     new_user = super(RegistrationWithName, self).save()
-    #     if new_user:
-    #         new_user.first_name = self.cleaned_data['first_name']
-    #         new_user.last_name = self.cleaned_data['last_name']
-    #         new_user.save()
     
     def __init__(self, *args, **kwargs):
         """
