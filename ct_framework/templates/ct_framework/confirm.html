@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{%load forms i18n  %}
+
+{% block title %}{% trans 'Please Confirm' %}{% endblock %}
+
+{% block content %}
+
+<h1>{{ title }}</h1>
+
+    
+    <form class="wide form" name="checkprofile" action="" method="post">{% csrf_token %}
+
+        <fieldset>
+            <legend><span>{% trans 'Please confirm' %}</span></legend>
+            <ol>
+            {% show_errors form.non_field_errors %}
+            {% for field in form %}
+                 {% show_field field "li" %}
+            {% endfor %}
+            </ol>
+            {# <div ><p class="alert">{% trans 'This action cannot be undone.' %}</p></div> #}
+            <p class="alert">{% trans 'This action cannot be undone.' %}</p>
+        </fieldset>
+
+        <fieldset class="submit">
+            <input type="submit" name="result" value="{% trans 'Delete' %}">&nbsp;&nbsp;
+            <input type="submit" name="result" value="{% trans 'Cancel' %}">
+        </fieldset>
+        
+    </form>
+
+
+{% endblock %}

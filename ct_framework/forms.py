@@ -25,3 +25,8 @@ class UsernameOrEmailAuthenticationForm(AuthenticationForm):
                     _("Please enter a correct username or email address, and  password."))
         return super(UsernameOrEmailAuthenticationForm, self).clean()
         
+class ConfirmForm(forms.Form):
+    resource_name = forms.CharField(label=_('Name'), max_length=96,
+        widget=forms.TextInput(attrs={'readonly':'readonly'}))
+    # operation = forms.CharField(widget=forms.HiddenInput)
+    # group_slug = forms.CharField(widget=forms.HiddenInput)
