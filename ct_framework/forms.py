@@ -5,7 +5,6 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 
 
-
 class UsernameOrEmailAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label=_('Username or email'), max_length=46)
     
@@ -30,3 +29,4 @@ class ConfirmForm(forms.Form):
         widget=forms.TextInput(attrs={'readonly':'readonly'}))
     # operation = forms.CharField(widget=forms.HiddenInput)
     # group_slug = forms.CharField(widget=forms.HiddenInput)
+
