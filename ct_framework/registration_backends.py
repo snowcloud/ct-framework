@@ -46,17 +46,18 @@ class RegistrationWithName(RegistrationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError(
                 _("This email address is in use. Click \"forgotten user name or password?\" above."))
-            
+        
+        site = Site.objects.get_current()
         debug = '%s\n' % self.errors.keys()
         debug += '%s\n' % self.errors.values()
         debug += '%s %s [%s]\n%s\n\n' % ( self.data['first_name'], self.data['last_name'],
             self.data['username'], self.data['email'], )
         debug += 'http://www.google.co.uk/search?&q=%s\n\n' % self.data['email']
-        debug += 'http://%s/admin/auth/user/?q=%s\n' % (Site.objects.get_current().domain ,self.data['username'])
+        debug += 'http://%s/admin/auth/user/?q=%s\n' % (site.domain ,self.data['username'])
         
         from django.core.mail import send_mail
 
-        send_mail('ICNP registration', debug, 'derek@snowcloud.co.uk',
+        send_mail('%s registration' % site.name, debug, 'derek@snowcloud.co.uk',
             ['derek.hoy@gmail.com'], fail_silently=True)
         
         return cleaned_data
