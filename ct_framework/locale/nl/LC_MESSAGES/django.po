@@ -8,24 +8,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-09 21:35+0000\n"
+"POT-Creation-Date: 2011-03-01 11:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:10
+#: forms.py:9
 msgid "Username or email"
 msgstr "Gebruikernaam of email"
 
-#: forms.py:25
+#: forms.py:24
 msgid "Please enter a correct username or email address, and  password."
 msgstr ""
 "Geef alstublieft een correcte gebruikersnaam of email adres en wachtwoord in"
+
+#: forms.py:28
+msgid "Name"
+msgstr ""
 
 #: registration_backends.py:29
 msgid "Username"
@@ -55,12 +59,12 @@ msgstr ""
 "Dit email adres is al in gebruik. Klik op gebruikersnaam of wachtwoord "
 "vergeten"
 
-#: registration_backends.py:70
+#: registration_backends.py:71
 #: templates/registration/registration_form.html:15
 msgid "No spaces, please."
 msgstr "Geen spaties alstublieft"
 
-#: registration_backends.py:71
+#: registration_backends.py:72
 msgid ""
 "Should be one word, with no spaces or punctuation. For example, jsmith or "
 "BJones, but not jean smith, or j-smith."
@@ -161,27 +165,30 @@ msgid "Edit your comment"
 msgstr "Bewerk uw commentaar"
 
 #: templates/contact_form/contact_form.html:3
-#: templates/contact_form/contact_form.html:8
+#: templates/contact_form/contact_form.html:11
 msgid "Contact form"
 msgstr "Contact formulier"
 
-#: templates/contact_form/contact_form.html:10
+#: templates/contact_form/contact_form.html:9
+msgid "Contact the group managers"
+msgstr ""
+
+#: templates/contact_form/contact_form.html:14
 msgid ""
 "To send us a message, just fill out the form below (all fields are required)."
 msgstr ""
-"Om ons een bericht te sturen, wilt u het formulier hieronder invullen? (alle "
-"velden zijn verplicht)"
+"Wilt u het formulier hieronder invullen om ons een bericht te sturen? (alle velden zijn verplicht)."
 
-#: templates/contact_form/contact_form.html:14
+#: templates/contact_form/contact_form.html:18
 #: templates/registration/registration_form.html:46
 msgid "Please correct the errors below"
 msgstr "Wilt u de fouten hieronder herstellen?"
 
-#: templates/contact_form/contact_form.html:20
+#: templates/contact_form/contact_form.html:26
 msgid "Your message"
 msgstr "Uw bericht"
 
-#: templates/contact_form/contact_form.html:25
+#: templates/contact_form/contact_form.html:31
 msgid "Send your messsage"
 msgstr "Verstuur uw bericht"
 
@@ -200,6 +207,28 @@ msgstr "Uw bericht is naar het project team verstuurd"
 #: templates/contact_form/contact_form_sent.html:12
 msgid "Back to home page"
 msgstr "Terug naar de homepage"
+
+#: templates/ct_framework/confirm.html:4
+#, fuzzy
+msgid "Please Confirm"
+msgstr "Kunt u svp inloggen?"
+
+#: templates/ct_framework/confirm.html:10
+msgid "This action cannot be undone."
+msgstr "Deze actie kan niet meer ongedaan worden gemaakt."
+
+#: templates/ct_framework/confirm.html:15
+msgid "Please confirm"
+msgstr "Bevestig svp"
+
+#: templates/ct_framework/confirm.html:26
+msgid "Delete"
+msgstr ""
+
+#: templates/ct_framework/confirm.html:27
+#: templates/registration/profile_details.html:25
+msgid "Cancel"
+msgstr "Annuleren"
 
 #: templates/flatpages/default.html:21
 msgid "Comments"
@@ -255,8 +284,8 @@ msgid ""
 "a> and use the site.</p>"
 msgstr ""
 "<h2>Uw registratie is gelukt</h2>\n"
-"<p>Dank u wel voor uw registratie! U kunt nu inloggen <a href=\"/"
-"accounts/login/\">log in</a> en het systeem gebruiken.</p>"
+"<p>Dank u wel voor uw registratie! U kunt nu inloggen <a href=\"/accounts/"
+"login/\">log in</a> en het systeem gebruiken.</p>"
 
 #: templates/registration/login.html:4 templates/registration/login.html:31
 #: templates/registration/password_reset_complete.html:12
@@ -477,10 +506,6 @@ msgstr "Controleer uw gegevens"
 #: templates/registration/profile_details.html:24
 msgid "Save details"
 msgstr "Sla uw gegevens op"
-
-#: templates/registration/profile_details.html:25
-msgid "Cancel"
-msgstr "Annuleren"
 
 #: templates/registration/registration_closed.html:4
 #: templates/registration/registration_closed.html:6
