@@ -51,9 +51,7 @@ class RegistrationWithName(RegistrationForm):
         first_name = cleaned_data.get("first_name")
         last_name = cleaned_data.get("last_name")
 
-        if (username == first_name and username == last_name):
-            raise forms.ValidationError(
-                _("Registration refused."))
+        refused = (username == first_name and username == last_name)
         
         site = Site.objects.get_current()
         debug = '%s\n' % self.errors.keys()
@@ -62,12 +60,17 @@ class RegistrationWithName(RegistrationForm):
             self.data['username'], self.data['email'], )
         debug += 'http://www.google.co.uk/search?&q=%s\n\n' % self.data['email']
         debug += 'http://%s/admin/auth/user/?q=%s\n' % (site.domain ,self.data['username'])
+        if refused:
+            debug += 'REFUSED\n'
         
         from django.core.mail import send_mail
 
         send_mail('%s registration' % site.name, debug, 'derek@snowcloud.co.uk',
             ['derek.hoy@gmail.com'], fail_silently=True)
         
+        if refused:
+            raise forms.ValidationError(_("Registration refused."))
+            
         return cleaned_data
         
     
