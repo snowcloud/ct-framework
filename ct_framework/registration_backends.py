@@ -46,6 +46,14 @@ class RegistrationWithName(RegistrationForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError(
                 _("This email address is in use. Click \"forgotten user name or password?\" above."))
+
+        username = cleaned_data.get("username")
+        first_name = cleaned_data.get("first_name")
+        last_name = cleaned_data.get("last_name")
+
+        if (username == first_name and username == last_name):
+            raise forms.ValidationError(
+                _("Registration refused."))
         
         site = Site.objects.get_current()
         debug = '%s\n' % self.errors.keys()
