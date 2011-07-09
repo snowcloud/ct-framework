@@ -189,7 +189,7 @@ msgid "Your message"
 msgstr "Uw bericht"
 
 #: templates/contact_form/contact_form.html:31
-msgid "Send your messsage"
+msgid "Send your message"
 msgstr "Verstuur uw bericht"
 
 #: templates/contact_form/contact_form_sent.html:4
