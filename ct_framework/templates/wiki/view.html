@@ -14,7 +14,18 @@
 
 {% block content %}
 
-    <div class="five columns alpha secondary">
+    <div class="ten columns alpha">
+        <h1>{{ article.summary }}</h1>
+
+        {# {% render_content article %} #}
+        {{ article.content|textile }}
+
+        <p>&nbsp;</p>
+        {{ article|wiki_edit:user }}
+        {{ article|wiki_delete:user }}        
+
+    </div>
+    <div class="five offset-by-one columns omega secondary">
         <div class="nav">
             <h2>{% trans 'Pages' %}</h2>
     
@@ -34,17 +45,6 @@
         </div>        
     </div>
 
-    <div class="ten offset-by-one columns omega">
-        <h1>{{ article.summary }}</h1>
-
-        {# {% render_content article %} #}
-        {{ article.content|textile }}
-
-        <p>&nbsp;</p>
-        {{ article|wiki_edit:user }}
-        {{ article|wiki_delete:user }}        
-
-    </div>
 
 {% endblock %}
 
