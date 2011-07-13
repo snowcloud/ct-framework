@@ -21,7 +21,7 @@
 	{% if groups or templates or posts %}
 	    {% if groups %}
 	    <h2>{% trans 'Groups' %}:</h2>
-	      <ul>
+	      <ul class="disc">
 	        {% for o in groups %}
 	            {% if o|group_access:user or o.is_public  %}
 	                <li><a href="{% url group o.slug %}">{{ o.name }}</a></li>
@@ -33,7 +33,7 @@
     
 	    {% if templates %}
 	    <h2>{% trans 'Detailed Clinical Models' %}:</h2>
-	      <ul>
+	      <ul class="disc">
 	        {% for o in templates %} 
 	            {% if o.group|resource_access:user  %}
 	                <li><a href="{{ o.get_absolute_url }}">{{ o.name }}</a></li>
@@ -45,7 +45,7 @@
 
 	    {% if posts %}
 	    <h2>{% trans 'Discussion Posts' %}:</h2>
-	      <ul>
+	      <ul class="disc">
 	        {% for o in posts %}
 				{% if o|post_access:user %}
 		            <li><a href="{{ o.get_absolute_url }}">{{ o.title }}</a></li>
