@@ -1,2 +1,3 @@
 /ClinicalTemplate.org_shared_code.egg-info
 *.pyc
+/ct_framework/templates/filebrowser
