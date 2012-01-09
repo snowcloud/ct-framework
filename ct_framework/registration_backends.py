@@ -82,8 +82,19 @@ class RegistrationWithName(RegistrationForm):
         self.fields['username'].error_messages['invalid']=_("No spaces, please.")
         self.fields['username'].help_text=_('Should be one word, with no spaces or punctuation. For example, jsmith or BJones, but not jean smith, or j-smith.')
 
+class RegistrationWithNameAndTermsOfService(RegistrationWithName):
+    """
+    Subclass of ``RegistrationForm`` which adds a required checkbox
+    for agreeing to a site's Terms of Service.
+    
+    """
+    tos = forms.BooleanField(widget=forms.CheckboxInput(attrs=attrs_dict),
+                             label=_(u'I have read and agree to the Terms of Service'),
+                             error_messages={'required': _("You must agree to the terms to register")})
+
 
 class CTRegistrationBackend(DefaultBackend):
+
     def get_form_class(self, request):
         return RegistrationWithName
         
@@ -94,4 +105,8 @@ class CTRegistrationBackend(DefaultBackend):
         new_user.save()
         return new_user
         
-
+class CTRegistrationBackendToS(CTRegistrationBackend):
+        
+    def get_form_class(self, request):
+        return RegistrationWithNameAndTermsOfService
+        

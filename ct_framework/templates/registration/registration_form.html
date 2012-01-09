@@ -51,6 +51,7 @@ $(document).ready(function(){
     <fieldset>
         <legend><span>{% trans 'Your details' %}</span></legend>
         <ol>{% show_form form "li" %}</ol>
+        {% include "registration/registration_form_ps.html" %}
     </fieldset>
 
     <fieldset class="submit">
