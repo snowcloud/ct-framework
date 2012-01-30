@@ -7,33 +7,14 @@
 {% endblock %}
 
 {% block breadcrumbs %}
-  <a href="/">{% trans 'Home' %}</a>  &gt;
-  <a href="/groups">{% trans 'Groups' %}</a>
+  <p><a href="/">{% trans 'Home' %}</a>  &gt;
+  <a href="/groups">{% trans 'Groups' %}</a> &gt; 
+  <a href="{{ article.group.get_absolute_url }}">{{ article.group.name }}</a></p>
 {% endblock %}
 
 {% block content %}
 
-<p>&gt; <a href="{{ article.group.get_absolute_url }}">{{ article.group.name }}</a>
-    <div class="column span-6 box-section">
-        <h2>{% trans 'Pages' %}</h2>
-    
-        {% wiki_pages for article as pages %}
-        {% if pages %}
-        <div class="menu-list">
-            <ul>
-            {% for page in pages %}
-                <li{% ifequal page article  %} class="current-item"{% endifequal %}><a href="{{ page.get_absolute_url }}">{{ page.summary }}</a></li>
-            {% endfor %}
-            </ul>
-            {% else %}
-                <p>- {% trans 'None yet' %} -</p>
-            {% endif %}
-        </div>
-        {{ article.group|wiki_new_page:user }}
-        
-    </div>
-
-    <div class="column span-14 box-section  last">
+    <div class="ten columns alpha">
         <h1>{{ article.summary }}</h1>
 
         {# {% render_content article %} #}
@@ -44,6 +25,26 @@
         {{ article|wiki_delete:user }}        
 
     </div>
+    <div class="five offset-by-one columns omega secondary">
+        <div class="nav">
+            <h2>{% trans 'Pages' %}</h2>
+    
+            {% wiki_pages for article as pages %}
+            {% if pages %}
+            <div class="menu-list">
+                <ul class="disc">
+                {% for page in pages %}
+                    <li{% ifequal page article  %} class="current-item"{% endifequal %}><a href="{{ page.get_absolute_url }}">{{ page.summary }}</a></li>
+                {% endfor %}
+                </ul>
+                {% else %}
+                    <p>- {% trans 'None yet' %} -</p>
+                {% endif %}
+            </div>
+            {{ article.group|wiki_new_page:user }}
+        </div>        
+    </div>
+
 
 {% endblock %}
 

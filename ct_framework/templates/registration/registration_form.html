@@ -3,38 +3,6 @@
 
 {% block title %}{% trans 'Register with this site' %}{% endblock %}
 
-{% block head_extra %}
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-{# <script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script> #}
-<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
-
-<script>
-$(document).ready(function(){
-    jQuery.validator.addMethod("nospace", function(value, element) { 
-      return this.optional(element) || /^[\S]*$/.test(value); 
-    }, "{% trans 'No spaces, please.' %}");
-    
-    $("#registrationForm").validate({
-        debug: false,
-        wrapper: 'ul',
-        errorElement: 'li',
-        errorClass: 'errors',
-        errorPlacement: function(error, element) {
-             error.prependTo( element.parent() ).addClass('errors');
-        },
-        rules: {
-            username: { nospace: "" },
-            password2: { equalTo: "#id_password1" },
-        },
-        {# success: function(label) { label.text('OK!').addClass('valid');} #}
-    });
-});
-</script>
-
-
-{% endblock %}
-
-
 {% block content %}
 
 <h1>{% trans 'Register with this site' %}</h1>
@@ -61,5 +29,30 @@ $(document).ready(function(){
 </form>
 
 
+{% endblock %}
+
+{% block js-extra %}
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+{% endblock %}
+
+{% block js-document-ready %}
+    jQuery.validator.addMethod("nospace", function(value, element) { 
+      return this.optional(element) || /^[\S]*$/.test(value); 
+    }, "{% trans 'No spaces, please.' %}");
+    
+    $("#registrationForm").validate({
+        debug: false,
+        wrapper: 'ul',
+        errorElement: 'li',
+        errorClass: 'errors',
+        errorPlacement: function(error, element) {
+             error.prependTo( element.parent() ).addClass('errors');
+        },
+        rules: {
+            username: { nospace: "" },
+            password2: { equalTo: "#id_password1" },
+        },
+        {# success: function(label) { label.text('OK!').addClass('valid');} #}
+    });
 {% endblock %}
 
